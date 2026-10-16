@@ -43,6 +43,13 @@ def test_both_cue_types_in_one_clause_is_ambiguous():
 def test_balance_amount_claimed_as_balance_is_supported():
     assert verify(MSG, "₹8,400", Role.BALANCE).verdict == Verdict.SUPPORTED
 
+def test_swapped_transaction_and_balance_amounts_are_not_supported():
+    # Each amount is real, but each is claimed in the other amount's role.
+    balance_as_transaction = verify(MSG, "₹8,400", Role.TRANSACTION)
+    transaction_as_balance = verify(MSG, "₹1,250", Role.BALANCE)
+    assert balance_as_transaction.verdict != Verdict.SUPPORTED
+    assert transaction_as_balance.verdict != Verdict.SUPPORTED
+
 
 def test_cue_from_neighbouring_amount_does_not_cause_wrong_verdict():
     # "balance" belongs to 8,400, not 1,250. We must not say UNSUPPORTED.
