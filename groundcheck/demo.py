@@ -44,15 +44,23 @@ class DemoError(Exception):
     """A problem we can explain to the user in one or two lines."""
 
 
-def ask_model(sms: str) -> str:
-    """Send the SMS to Ollama and return the model's text reply."""
+def ask_model(sms: str, follow_up: list[dict[str, str]] | None = None) -> str:
+    """Send the SMS to Ollama and return the model's text reply.
+
+    follow_up: optional extra chat messages appended after the SMS (the
+    evaluation uses it for one controlled correction attempt). With the
+    default None, the request is exactly what it was before.
+    """
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": sms},
+    ]
+    if follow_up:
+        messages.extend(follow_up)
     body = json.dumps(
         {
             "model": MODEL,
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": sms},
-            ],
+            "messages": messages,
             "stream": False,
             "format": "json",
             "options": {"temperature": 0},

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GroundCheck: verify model claims against the source</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/app.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="mark" aria-hidden="true"></span><span class="name">GroundCheck</span></div>
+  <p class="tag">Check what a model claims against the text it was given.</p>
+</header>
+
+<main>
+  <section class="panel" aria-labelledby="in-h">
+    <h2 id="in-h" class="eyebrow">Input</h2>
+    <div class="seg" role="group" aria-label="Mode">
+      <button type="button" id="m-gemma" aria-pressed="true">Extract with Gemma</button>
+      <button type="button" id="m-manual" aria-pressed="false">Manual claim</button>
+    </div>
+    <p id="mode-note" class="note"></p>
+
+    <label for="sms" class="lbl">Bank SMS</label>
+    <textarea id="sms" rows="4" maxlength="1000" spellcheck="false"></textarea>
+    <div class="chips" id="samples" role="group" aria-label="Sample messages"></div>
+
+    <div id="claims" class="claims" hidden>
+      <div><label for="c-tx" class="lbl">Claimed transaction amount</label>
+        <input id="c-tx" inputmode="decimal" maxlength="40" autocomplete="off" placeholder="e.g. 8400"></div>
+      <div><label for="c-bal" class="lbl">Claimed available balance</label>
+        <input id="c-bal" inputmode="decimal" maxlength="40" autocomplete="off" placeholder="e.g. 1250"></div>
+    </div>
+
+    <div class="actions">
+      <button type="button" id="run" class="primary"></button>
+      <button type="button" id="cancel" class="ghost" hidden>Cancel</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="panel" aria-labelledby="out-h">
+    <h2 id="out-h" class="eyebrow">Verification</h2>
+    <div id="results" aria-live="polite">
+      <p class="empty">Run a check to see field-level verdicts and the source evidence behind them.</p>
+    </div>
+  </section>
+
+  <section class="panel wide" aria-labelledby="b-h">
+    <div class="b-head">
+      <h2 id="b-h" class="eyebrow">Benchmark</h2>
+      <span class="pill">Synthetic &middot; limited</span>
+    </div>
+    <p class="note">30 hand-written cases, run live by the verifier on this machine (no model). The score measures
+      consistency with the intended safety policy on these examples, not real-world accuracy.</p>
+
+    <div id="b-body"><p class="empty">Loading benchmark&hellip;</p></div>
+  </section>
+
+  <section class="panel wide" aria-labelledby="e-h">
+    <div class="b-head">
+      <h2 id="e-h" class="eyebrow">Model Evaluation</h2>
+      <span class="pill">Gemma 3 · Synthetic data</span>
+    </div>
+    <p class="note">
+      Results from 18 synthetic SMS sources and 36 field judgements.
+      Results are limited and do not establish real-world accuracy.
+    </p>
+    <div id="e-body" aria-live="polite">
+      <p class="empty">Loading evaluation results&hellip;</p>
+    </div>
+  </section>
+</main>
+
+<footer>Rule-based verifier &middot; English bank-SMS wording &middot; ambiguous wording is deliberately not accepted.
+  Model output is shown as plain text and never trusted.</footer>
+</body>
+</html>
