@@ -1,0 +1,1203 @@
+{
+  "schema": 1,
+  "kind": "gemma_eval_synthetic",
+  "label": "SYNTHETIC AND LIMITED: 18 author-written bank-SMS sources (36 field judgements) with author-assigned ground truth. The verifier was built against these same wording styles, so gate results are optimistic and say nothing about real-world accuracy. Not comparable with the verifier-only 30/30 in benchmarks/benchmark.py, which is not model accuracy.",
+  "created_utc": "2026-10-16T05:47:56+00:00",
+  "model": "gemma3:1b",
+  "ollama_version": "0.40.5",
+  "python": "3.10.8",
+  "hashes": {
+    "dataset": "8133accd5a9b3a90f53f6246f22b63a39858a3e6c41cbf967cfd2e48163ef714",
+    "system_prompt": "48079a1dd49ef8792a4f64364266a581c72fbd69d5684de4a125277c34af8d08",
+    "feedback_template": "f97ded76b0b3c2e58e3c7a6297904b5bac3825abf9cc7f3d73445711f6ad9009"
+  },
+  "excluded_sources": [
+    {
+      "source": "Your account was debited ₹1,2500. Your available balance is ₹8,400.",
+      "reason": "Malformed number '1,2500' (invalid grouping): the transaction amount is undefined (1,250? 12,500?) and the verifier deliberately ignores it."
+    },
+    {
+      "source": "Debited ₹500. Credited ₹700.",
+      "reason": "Two different transactions: there is no single transaction amount, and no balance."
+    },
+    {
+      "source": "Your balance was debited ₹1,250.",
+      "reason": "Contradictory wording: it cannot be said whether 1,250 is a transaction or a balance."
+    },
+    {
+      "source": "₹500 and ₹700 were debited.",
+      "reason": "Two debited amounts in one sentence: there is no single transaction amount."
+    }
+  ],
+  "records": [
+    {
+      "id": "s01",
+      "source": "Your account was debited ₹1,250. Your available balance is ₹8,400.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Your account was debited ₹1,250"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Your available balance is ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 8400,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s02",
+      "source": "Your account was credited ₹2,000. Your available balance is ₹9,500.",
+      "truth": {
+        "transaction_amount": "2000",
+        "available_balance": "9500"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 2000, \"available_balance\": 9500}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 2000,
+          "available_balance": 9500
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Your account was credited ₹2,000"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Your available balance is ₹9,500"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 2000,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 9500,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s03",
+      "source": "Debited ₹1,250, balance is ₹8,400.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Debited ₹1,250"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "balance is ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 8400,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s04",
+      "source": "You paid ₹499 to ACME STORE. Balance: ₹1,501.",
+      "truth": {
+        "transaction_amount": "499",
+        "available_balance": "1501"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": \"499\", \"available_balance\": \"1501\"}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": "499",
+          "available_balance": "1501"
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "You paid ₹499 to ACME STORE"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Balance: ₹1,501"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": "499",
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": "1501",
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s05",
+      "source": "Rs. 1,250.00 was debited from your account. Avl bal Rs. 8,400.50.",
+      "truth": {
+        "transaction_amount": "1250.00",
+        "available_balance": "8400.50"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250.00, \"available_balance\": 8400.50}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250.0,
+          "available_balance": 8400.5
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Rs. 1,250.00 was debited from your account"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Avl bal Rs. 8,400.50"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250.0,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 8400.5,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s06",
+      "source": "Your account was debited ₹1,250.50. Your available balance is ₹8,400.",
+      "truth": {
+        "transaction_amount": "1250.50",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250.50, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250.5,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Your account was debited ₹1,250.50"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Your available balance is ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250.5,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 8400,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s07",
+      "source": "Your account was debited. Please check the app for details.",
+      "truth": {
+        "transaction_amount": null,
+        "available_balance": null
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": null, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": null,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          },
+          "available_balance": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s08",
+      "source": "Debited ₹500. Balance ₹500.",
+      "truth": {
+        "transaction_amount": "500",
+        "available_balance": "500"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 500, \"available_balance\": 500}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 500,
+          "available_balance": 500
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount appears more than once with conflicting roles.",
+            "evidence": [
+              "Debited ₹500",
+              "Balance ₹500"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount appears more than once with conflicting roles.",
+            "evidence": [
+              "Debited ₹500",
+              "Balance ₹500"
+            ]
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount",
+          "available_balance"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 500. Checker verdict: AMBIGUOUS. Reason: The amount appears more than once with conflicting roles. Evidence from the SMS: \"Debited ₹500\"; \"Balance ₹500\"\n- available_balance: you answered 500. Checker verdict: AMBIGUOUS. Reason: The amount appears more than once with conflicting roles. Evidence from the SMS: \"Debited ₹500\"; \"Balance ₹500\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 500, \"available_balance\": 500}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 500,
+          "available_balance": 500
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount appears more than once with conflicting roles.",
+            "evidence": [
+              "Debited ₹500",
+              "Balance ₹500"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount appears more than once with conflicting roles.",
+            "evidence": [
+              "Debited ₹500",
+              "Balance ₹500"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s09",
+      "source": "₹8,400 is your balance after ₹1,250 was debited.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 8400, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 8400,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "UNSUPPORTED",
+            "reason": "The amount is in the source, but as the balance amount, not the transaction amount.",
+            "evidence": [
+              "₹8,400 is your balance after ₹1,250 was debited"
+            ]
+          },
+          "available_balance": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 8400. Checker verdict: UNSUPPORTED. Reason: The amount is in the source, but as the balance amount, not the transaction amount. Evidence from the SMS: \"₹8,400 is your balance after ₹1,250 was debited\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 8400, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 8400,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "UNSUPPORTED",
+            "reason": "The amount is in the source, but as the balance amount, not the transaction amount.",
+            "evidence": [
+              "₹8,400 is your balance after ₹1,250 was debited"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s10",
+      "source": "Your transaction limit is ₹5,000.",
+      "truth": {
+        "transaction_amount": null,
+        "available_balance": null
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": null, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": null,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          },
+          "available_balance": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s11",
+      "source": "Debited ₹500. Limit ₹5,000.",
+      "truth": {
+        "transaction_amount": "500",
+        "available_balance": null
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 500, \"available_balance\": 5000}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 500,
+          "available_balance": 5000
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount looks like a transaction amount, but the source has other amounts that are also transaction amounts or whose role is unclear.",
+            "evidence": [
+              "Debited ₹500",
+              "Limit ₹5,000"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Limit ₹5,000"
+            ]
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount",
+          "available_balance"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 500. Checker verdict: AMBIGUOUS. Reason: The amount looks like a transaction amount, but the source has other amounts that are also transaction amounts or whose role is unclear. Evidence from the SMS: \"Debited ₹500\"; \"Limit ₹5,000\"\n- available_balance: you answered 5000. Checker verdict: AMBIGUOUS. Reason: The amount is in the source, but its role is unclear. Evidence from the SMS: \"Limit ₹5,000\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 500, \"available_balance\": 5000}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 500,
+          "available_balance": 5000
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount looks like a transaction amount, but the source has other amounts that are also transaction amounts or whose role is unclear.",
+            "evidence": [
+              "Debited ₹500",
+              "Limit ₹5,000"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Limit ₹5,000"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s12",
+      "source": "Debited ₹1,250 and balance is ₹8,400.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Debited ₹1,250 and balance is ₹8,400"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount looks like a balance amount, but the source has other amounts that are also balance amounts or whose role is unclear.",
+            "evidence": [
+              "Debited ₹1,250 and balance is ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount",
+          "available_balance"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 1250. Checker verdict: AMBIGUOUS. Reason: The amount is in the source, but its role is unclear. Evidence from the SMS: \"Debited ₹1,250 and balance is ₹8,400\"\n- available_balance: you answered 8400. Checker verdict: AMBIGUOUS. Reason: The amount looks like a balance amount, but the source has other amounts that are also balance amounts or whose role is unclear. Evidence from the SMS: \"Debited ₹1,250 and balance is ₹8,400\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Debited ₹1,250 and balance is ₹8,400"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount looks like a balance amount, but the source has other amounts that are also balance amounts or whose role is unclear.",
+            "evidence": [
+              "Debited ₹1,250 and balance is ₹8,400"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s13",
+      "source": "Reference amount ₹8,400.",
+      "truth": {
+        "transaction_amount": null,
+        "available_balance": null
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 8400, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 8400,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Reference amount ₹8,400"
+            ]
+          },
+          "available_balance": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 8400. Checker verdict: AMBIGUOUS. Reason: The amount is in the source, but its role is unclear. Evidence from the SMS: \"Reference amount ₹8,400\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 8400,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Reference amount ₹8,400"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s14",
+      "source": "Your balance after debit of ₹1,250 is ₹8,400.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Your balance after debit of ₹1,250 is ₹8,400"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Your balance after debit of ₹1,250 is ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": {
+        "attempted_fields": [
+          "transaction_amount",
+          "available_balance"
+        ],
+        "feedback": "An automatic checker compared your previous answer with the SMS text. These fields were not accepted:\n- transaction_amount: you answered 1250. Checker verdict: AMBIGUOUS. Reason: The amount is in the source, but its role is unclear. Evidence from the SMS: \"Your balance after debit of ₹1,250 is ₹8,400\"\n- available_balance: you answered 8400. Checker verdict: AMBIGUOUS. Reason: The amount is in the source, but its role is unclear. Evidence from the SMS: \"Your balance after debit of ₹1,250 is ₹8,400\"\nAnswer again with JSON only, in exactly the same shape. Use only amounts that appear in the SMS, and use null for a field that is not in the message.",
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Your balance after debit of ₹1,250 is ₹8,400"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "AMBIGUOUS",
+            "reason": "The amount is in the source, but its role is unclear.",
+            "evidence": [
+              "Your balance after debit of ₹1,250 is ₹8,400"
+            ]
+          }
+        }
+      },
+      "final": {
+        "transaction_amount": {
+          "value": null,
+          "origin": "withheld"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s15",
+      "source": "Your account was debited ₹1,25,000. Your available balance is ₹8,40,000.",
+      "truth": {
+        "transaction_amount": "125000",
+        "available_balance": "840000"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 125000, \"available_balance\": 840000}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 125000,
+          "available_balance": 840000
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Your account was debited ₹1,25,000"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Your available balance is ₹8,40,000"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 125000,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 840000,
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s16",
+      "source": "INR 3200 was withdrawn\nBalance INR 10,000",
+      "truth": {
+        "transaction_amount": "3200",
+        "available_balance": "10000"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": \"3200\", \"available_balance\": \"10000\"}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": "3200",
+          "available_balance": "10000"
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "INR 3200 was withdrawn"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "Balance INR 10,000"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": "3200",
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": "10000",
+          "origin": "baseline"
+        }
+      }
+    },
+    {
+      "id": "s17",
+      "source": "Debited Rs.1250.",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": null
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": null}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": null
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Debited Rs.1250"
+            ]
+          },
+          "available_balance": {
+            "status": "not_extracted",
+            "verdict": null,
+            "reason": "No value was given.",
+            "evidence": []
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": null,
+          "origin": "withheld"
+        }
+      }
+    },
+    {
+      "id": "s18",
+      "source": "Debited ₹1,250; avl bal ₹8,400!",
+      "truth": {
+        "transaction_amount": "1250",
+        "available_balance": "8400"
+      },
+      "baseline": {
+        "raw_output": "{\"transaction_amount\": 1250, \"available_balance\": 8400}",
+        "parse_error": null,
+        "extraction": {
+          "transaction_amount": 1250,
+          "available_balance": 8400
+        },
+        "verifier": {
+          "transaction_amount": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the transaction amount.",
+            "evidence": [
+              "Debited ₹1,250"
+            ]
+          },
+          "available_balance": {
+            "status": "checked",
+            "verdict": "SUPPORTED",
+            "reason": "The amount appears in the source as the balance amount.",
+            "evidence": [
+              "avl bal ₹8,400"
+            ]
+          }
+        }
+      },
+      "correction": null,
+      "final": {
+        "transaction_amount": {
+          "value": 1250,
+          "origin": "baseline"
+        },
+        "available_balance": {
+          "value": 8400,
+          "origin": "baseline"
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "dataset": {
+      "sms": 18,
+      "fields": 36,
+      "fields_with_numeric_truth": 28,
+      "fields_with_null_truth": 8
+    },
+    "model_output": {
+      "unusable_baseline_outputs": 0
+    },
+    "baseline": {
+      "accuracy": {
+        "num": 32,
+        "den": 36,
+        "value": 0.8888888888888888,
+        "ci95": [
+          0.7468487098496367,
+          0.9559343109125816
+        ]
+      },
+      "released_precision": {
+        "num": 26,
+        "den": 29,
+        "value": 0.896551724137931,
+        "ci95": [
+          0.7361455275293085,
+          0.9641857596186989
+        ]
+      },
+      "values_given": 29,
+      "abstentions": {
+        "correct": 6,
+        "missed_value": 1
+      },
+      "wrong_values": {
+        "wrong_number": 1,
+        "invented_number": 2,
+        "unreadable": 0
+      }
+    },
+    "groundcheck": {
+      "accepted": 19,
+      "accepted_precision": {
+        "num": 19,
+        "den": 19,
+        "value": 1.0,
+        "ci95": [
+          0.8318156346315496,
+          1.0
+        ]
+      },
+      "coverage": {
+        "num": 19,
+        "den": 29,
+        "value": 0.6551724137931034,
+        "ci95": [
+          0.47344776507155983,
+          0.8005949125080951
+        ]
+      },
+      "true_values_released": {
+        "num": 19,
+        "den": 28,
+        "value": 0.6785714285714286,
+        "ci95": [
+          0.4933850455563118,
+          0.8206695245657927
+        ]
+      },
+      "false_acceptances": {
+        "num": 0,
+        "den": 3,
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.5615060804490177
+        ]
+      },
+      "false_rejections": {
+        "num": 7,
+        "den": 26,
+        "value": 0.2692307692307692,
+        "ci95": [
+          0.13704275525067386,
+          0.46083403419761304
+        ],
+        "rejected_as_unsupported": 0,
+        "rejected_as_ambiguous": 7
+      },
+      "detection_strict": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 2,
+        "tn": 26,
+        "precision": {
+          "num": 1,
+          "den": 1,
+          "value": 1.0,
+          "ci95": [
+            0.20654329147389294,
+            1.0
+          ]
+        },
+        "recall": {
+          "num": 1,
+          "den": 3,
+          "value": 0.3333333333333333,
+          "ci95": [
+            0.0614903152761605,
+            0.7923450448735121
+          ]
+        }
+      },
+      "detection_conservative": {
+        "tp": 3,
+        "fp": 7,
+        "fn": 0,
+        "tn": 19,
+        "precision": {
+          "num": 3,
+          "den": 10,
+          "value": 0.3,
+          "ci95": [
+            0.10778928748621183,
+            0.6032267800204347
+          ]
+        },
+        "recall": {
+          "num": 3,
+          "den": 3,
+          "value": 1.0,
+          "ci95": [
+            0.43849391955098227,
+            1.0
+          ]
+        }
+      }
+    },
+    "correction": {
+      "retried_sms": 6,
+      "retried_fields": 10,
+      "wrong_flagged_fields": 3,
+      "success": {
+        "num": 0,
+        "den": 3,
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.5615060804490177
+        ]
+      },
+      "outcomes_for_wrong_values": {
+        "corrected": 0,
+        "released_wrong": 0,
+        "correct_but_withheld": 0,
+        "abstained_missing": 0,
+        "still_wrong_withheld": 3
+      },
+      "outcomes_for_correct_but_rejected_values": {
+        "recovered": 0,
+        "still_withheld_correct": 7
+      },
+      "regressions": {
+        "num": 0,
+        "den": 7,
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.35433884297520657
+        ],
+        "released_wrong": 0,
+        "withheld": 0
+      }
+    },
+    "pipeline": {
+      "released": 19,
+      "precision": {
+        "num": 19,
+        "den": 19,
+        "value": 1.0,
+        "ci95": [
+          0.8318156346315496,
+          1.0
+        ]
+      },
+      "coverage": {
+        "num": 19,
+        "den": 29,
+        "value": 0.6551724137931034,
+        "ci95": [
+          0.47344776507155983,
+          0.8005949125080951
+        ]
+      },
+      "released_wrong": 0
+    },
+    "reliability_notes": [
+      "groundcheck.false_acceptances: only 3 cases, so the 95% interval is wide; treat this estimate as anecdotal",
+      "groundcheck.detection_strict.precision: only 1 cases, so the 95% interval is wide; treat this estimate as anecdotal",
+      "groundcheck.detection_strict.recall: only 3 cases, so the 95% interval is wide; treat this estimate as anecdotal",
+      "groundcheck.detection_conservative.recall: only 3 cases, so the 95% interval is wide; treat this estimate as anecdotal",
+      "correction.success: only 3 cases, so the 95% interval is wide; treat this estimate as anecdotal",
+      "correction.regressions: only 7 cases, so the 95% interval is wide; treat this estimate as anecdotal"
+    ]
+  }
+}
